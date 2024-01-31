@@ -12,5 +12,6 @@ spring:
   application:
     name: ECOMMERCE-SERVICE
 
-server:
-  port: 8081
+
+  profiles:
+    active: dev

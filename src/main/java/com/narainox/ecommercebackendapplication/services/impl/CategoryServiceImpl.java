@@ -42,7 +42,8 @@ public class CategoryServiceImpl implements CategoryService {
         category.setDescription(categoryDto.getDescription());
         category.setUpdatedAt(LocalDateTime.now());
         category.setImageUrl(categoryDto.getImageUrl());
-        return modelMapper.map(category,CategoryDto.class);
+        Category save = categoryRepository.save(category);
+        return modelMapper.map(save,CategoryDto.class);
     }
 
     @Override

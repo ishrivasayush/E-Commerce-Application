@@ -3,8 +3,10 @@ package com.narainox.ecommercebackendapplication.controllers;
 import com.narainox.ecommercebackendapplication.dto.APIResponse;
 import com.narainox.ecommercebackendapplication.dto.CategoryDto;
 import com.narainox.ecommercebackendapplication.dto.CommonPageRequest;
+import com.narainox.ecommercebackendapplication.dto.ProductDto;
 import com.narainox.ecommercebackendapplication.exception.RecordNotFoundException;
 import com.narainox.ecommercebackendapplication.services.CategoryService;
+import com.narainox.ecommercebackendapplication.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,16 +20,16 @@ import java.util.List;
 @RequestMapping("/api")
 @AllArgsConstructor
 @Validated
-public class CategoryController {
-    private CategoryService categoryService;
-    @PostMapping("/v1/category")
-    public ResponseEntity<APIResponse> createCategoryCall(@RequestBody @Valid CategoryDto categoryDto)
+public class ProductController {
+    private ProductService productService;
+    @PostMapping("/v1/category/{categoryId}/product")
+    public ResponseEntity<APIResponse> createProductCall(@RequestBody @Valid ProductDto productDto,@PathVariable Integer categoryId)
     {
         APIResponse apiResponse=new APIResponse();
         try {
-            CategoryDto category = categoryService.createCategory(categoryDto);
-            apiResponse.setData(category);
-            apiResponse.setMessage("Category Created Successfully.");
+            ProductDto product = productService.createProduct(productDto, categoryId);
+            apiResponse.setData(product);
+            apiResponse.setMessage("Product Created Successfully.");
             return new ResponseEntity<>(apiResponse,HttpStatus.CREATED);
         }
         catch (Exception ex)
@@ -35,14 +37,14 @@ public class CategoryController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping("/v1/category/{categoryId}")
-    public ResponseEntity<APIResponse> updateCategoryCall(@RequestBody @Valid CategoryDto categoryDto,@PathVariable Integer categoryId)
+    @PutMapping("/v1/product/{productId}")
+    public ResponseEntity<APIResponse> updateProductCall(@RequestBody @Valid ProductDto productDto,@PathVariable Integer productId)
     {
         APIResponse apiResponse=new APIResponse();
         try {
-            CategoryDto category = categoryService.updateCategory(categoryDto,categoryId);
-            apiResponse.setData(category);
-            apiResponse.setMessage("Category Updated Successfully.");
+            ProductDto product = productService.updateProduct(productDto, productId);
+            apiResponse.setData(product);
+            apiResponse.setMessage("Product Updated Successfully.");
             return new ResponseEntity<>(apiResponse,HttpStatus.OK);
         }
         catch (RecordNotFoundException recordNotFoundException)
@@ -54,14 +56,13 @@ public class CategoryController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/v1/category/{categoryId}")
-    public ResponseEntity<APIResponse> getCategoryCall(@PathVariable Integer categoryId)
+    @DeleteMapping("/v1/product/{productId}")
+    public ResponseEntity<APIResponse> deleteProductCall(@PathVariable Integer productId)
     {
         APIResponse apiResponse=new APIResponse();
         try {
-            CategoryDto category = categoryService.getCategory(categoryId);
-            apiResponse.setData(category);
-            apiResponse.setMessage("Category Get Successfully.");
+            productService.deleteProduct(productId);
+            apiResponse.setMessage("Product Deleted Successfully.");
             return new ResponseEntity<>(apiResponse,HttpStatus.OK);
         }
         catch (RecordNotFoundException recordNotFoundException)
@@ -74,27 +75,9 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/v1/category/categoryName/{categoryName}")
-    public ResponseEntity<APIResponse> getCategoryByNameCall(@PathVariable String categoryName)
-    {
-        APIResponse apiResponse=new APIResponse();
-        try {
-            CategoryDto category = categoryService.getCategoryByName(categoryName);
-            apiResponse.setData(category);
-            apiResponse.setMessage("Category Get Successfully.");
-            return new ResponseEntity<>(apiResponse,HttpStatus.OK);
-        }
-        catch (RecordNotFoundException recordNotFoundException)
-        {
-            throw recordNotFoundException;
-        }
-        catch (Exception ex)
-        {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    @GetMapping("/v1/category")
-    public ResponseEntity<APIResponse> getCategoriesCall(
+
+    @GetMapping("/v1/product")
+    public ResponseEntity<APIResponse> getProductsCall(
             @RequestParam(name = "pageNo",required = false,defaultValue = "0") Integer pageNo,
             @RequestParam(name = "pageSize",required = false,defaultValue = "10") Integer pageSize,
             @RequestParam(name = "sortBy",required = false,defaultValue = "categoryId") String sortBy,
@@ -108,10 +91,10 @@ public class CategoryController {
         commonPageRequest.setSortBy(sortBy);
         commonPageRequest.setSortDir(sortDir);
         try {
-            List<CategoryDto> category = categoryService.getCategories(commonPageRequest);
-            apiResponse.setData(category);
-            apiResponse.setMessage("Category Get Successfully.");
-            return new ResponseEntity<>(apiResponse,HttpStatus.CREATED);
+            List<ProductDto> products = productService.getProducts(commonPageRequest);
+            apiResponse.setData(products);
+            apiResponse.setMessage("Products Get Successfully.");
+            return new ResponseEntity<>(apiResponse,HttpStatus.FOUND);
         }
         catch (Exception ex)
         {

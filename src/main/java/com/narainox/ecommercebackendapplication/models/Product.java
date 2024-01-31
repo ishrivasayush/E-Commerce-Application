@@ -8,35 +8,39 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "categories")
-public class Category {
+@Entity
+@Table(name = "products")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "category_sequence"
+            generator = "product_sequence"
     )
     @SequenceGenerator(
-            name = "category_sequence",
-            sequenceName = "category_sequence",
+            name = "product_sequence",
+            sequenceName = "product_sequence",
             allocationSize = 1
     )
-    private Integer categoryId;
-    @Column(name = "category_Name",nullable = false)
-    private String categoryName;
+    private Integer productId;
+    @Column(name = "product_Name",nullable = false)
+    private String productName;
     @Column(name = "image_url",nullable = false)
     private String imageUrl;
     @Column(name = "description",nullable = false)
     private String description;
+    @Column(name = "price",nullable = false)
+    private Double price;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
-    private Set<Product> products;
+    @ManyToOne
+    @JoinColumn(
+            name = "category_id"
+    )
+    private Category category;
+
 }
-
-

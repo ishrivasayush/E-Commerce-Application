@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpServerErrorException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -21,10 +22,18 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<APIResponse> recordNotFoundHandler(MethodArgumentNotValidException methodArgumentNotValidException)
+    public ResponseEntity<APIResponse> methodArgumentNotValidHandler(MethodArgumentNotValidException methodArgumentNotValidException)
     {
         APIResponse apiResponse=new APIResponse();
         apiResponse.setMessage(methodArgumentNotValidException.getBindingResult().getFieldError().getDefaultMessage());
         return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(HttpServerErrorException.InternalServerError.class)
+    public ResponseEntity<APIResponse> internalServerHandler(HttpServerErrorException.InternalServerError methodArgumentNotValidException)
+    {
+        APIResponse apiResponse=new APIResponse();
+        apiResponse.setMessage(methodArgumentNotValidException.getMessage());
+        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
