@@ -97,7 +97,7 @@ public class CategoryController {
     public ResponseEntity<APIResponse> getCategoriesCall(
             @RequestParam(name = "pageNo",required = false,defaultValue = "0") Integer pageNo,
             @RequestParam(name = "pageSize",required = false,defaultValue = "10") Integer pageSize,
-            @RequestParam(name = "sortBy",required = false,defaultValue = "categoryId") String sortBy,
+            @RequestParam(name = "sortBy",required = false,defaultValue = "Id") String sortBy,
             @RequestParam(name = "sortDir",required = false,defaultValue = "asc") String sortDir
     )
     {

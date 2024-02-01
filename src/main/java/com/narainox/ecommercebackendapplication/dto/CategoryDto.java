@@ -22,9 +22,6 @@ public class CategoryDto {
     private String description;
     @NotBlank(message = "imageUrl required parameter")
     private String imageUrl;
-
-    private Set<ProductDto> products;
-
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

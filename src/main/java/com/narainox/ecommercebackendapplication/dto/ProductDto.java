@@ -20,7 +20,7 @@ public class ProductDto {
     private String description;
     @NotBlank(message = "imageUrl required parameter")
     private String imageUrl;
-    @NotBlank(message = "price required parameter")
+
     private Double price;
     private CategoryDto category;
 

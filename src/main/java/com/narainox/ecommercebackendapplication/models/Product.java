@@ -30,7 +30,7 @@ public class Product {
     private String imageUrl;
     @Column(name = "description",nullable = false)
     private String description;
-    @Column(name = "price",nullable = false)
+
     private Double price;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
