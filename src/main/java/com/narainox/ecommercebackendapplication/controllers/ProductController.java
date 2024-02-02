@@ -1,11 +1,9 @@
 package com.narainox.ecommercebackendapplication.controllers;
 
-import com.narainox.ecommercebackendapplication.dto.APIResponse;
-import com.narainox.ecommercebackendapplication.dto.CategoryDto;
-import com.narainox.ecommercebackendapplication.dto.CommonPageRequest;
+import com.narainox.ecommercebackendapplication.payloads.APIResponse;
+import com.narainox.ecommercebackendapplication.utils.CommonPageRequest;
 import com.narainox.ecommercebackendapplication.dto.ProductDto;
 import com.narainox.ecommercebackendapplication.exception.RecordNotFoundException;
-import com.narainox.ecommercebackendapplication.services.CategoryService;
 import com.narainox.ecommercebackendapplication.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

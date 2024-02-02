@@ -1,7 +1,6 @@
 package com.narainox.ecommercebackendapplication.services;
 
-import com.narainox.ecommercebackendapplication.dto.CategoryDto;
-import com.narainox.ecommercebackendapplication.dto.CommonPageRequest;
+import com.narainox.ecommercebackendapplication.utils.CommonPageRequest;
 import com.narainox.ecommercebackendapplication.dto.ProductDto;
 
 import java.util.List;

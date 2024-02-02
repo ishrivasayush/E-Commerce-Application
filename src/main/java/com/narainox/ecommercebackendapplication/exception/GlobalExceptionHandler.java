@@ -1,6 +1,6 @@
 package com.narainox.ecommercebackendapplication.exception;
 
-import com.narainox.ecommercebackendapplication.dto.APIResponse;
+import com.narainox.ecommercebackendapplication.payloads.APIResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

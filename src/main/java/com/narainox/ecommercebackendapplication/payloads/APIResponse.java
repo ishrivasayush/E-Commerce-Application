@@ -1,4 +1,4 @@
-package com.narainox.ecommercebackendapplication.dto;
+package com.narainox.ecommercebackendapplication.payloads;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

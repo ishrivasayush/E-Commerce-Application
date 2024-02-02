@@ -1,7 +1,7 @@
 package com.narainox.ecommercebackendapplication.services.impl;
 
 import com.narainox.ecommercebackendapplication.dto.CategoryDto;
-import com.narainox.ecommercebackendapplication.dto.CommonPageRequest;
+import com.narainox.ecommercebackendapplication.utils.CommonPageRequest;
 import com.narainox.ecommercebackendapplication.exception.RecordNotFoundException;
 import com.narainox.ecommercebackendapplication.models.Category;
 import com.narainox.ecommercebackendapplication.repository.CategoryRepository;

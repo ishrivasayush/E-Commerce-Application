@@ -1,9 +1,7 @@
 package com.narainox.ecommercebackendapplication.services;
 
 import com.narainox.ecommercebackendapplication.dto.CategoryDto;
-import com.narainox.ecommercebackendapplication.dto.CommonPageRequest;
-import com.narainox.ecommercebackendapplication.models.Category;
-import org.springframework.data.domain.Pageable;
+import com.narainox.ecommercebackendapplication.utils.CommonPageRequest;
 
 import java.util.List;
 

@@ -1,8 +1,10 @@
 package com.narainox.ecommercebackendapplication.controllers;
 
-import com.narainox.ecommercebackendapplication.security.JwtAuthRequest;
-import com.narainox.ecommercebackendapplication.security.JwtAuthResponse;
+import com.narainox.ecommercebackendapplication.dto.UserDto;
+import com.narainox.ecommercebackendapplication.payloads.JwtAuthRequest;
+import com.narainox.ecommercebackendapplication.payloads.JwtAuthResponse;
 import com.narainox.ecommercebackendapplication.security.JwtTokenHelper;
+import com.narainox.ecommercebackendapplication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +15,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/auth/")
 public class AuthController {
     @Autowired
     private JwtTokenHelper jwtTokenHelper;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -50,5 +53,12 @@ public class AuthController {
             throw new BadCredentialsException("Credentials Invalid !!");
         }
 
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto)
+    {
+        UserDto registerUser = userService.registerUser(userDto);
+        return new ResponseEntity<>(registerUser,HttpStatus.CREATED);
     }
 }
