@@ -24,6 +24,12 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Override
+    public User getUser(String username)
+    {
+        return userRepository.findByUsername(username).get();
+    }
+
+    @Override
     public UserDto registerUser(UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
         //encode the password
