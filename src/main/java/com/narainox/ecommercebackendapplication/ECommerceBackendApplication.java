@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.List;
 
 @SpringBootApplication
-public class ECommerceBackendApplication implements CommandLineRunner {
+public class  ECommerceBackendApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ECommerceBackendApplication.class, args);

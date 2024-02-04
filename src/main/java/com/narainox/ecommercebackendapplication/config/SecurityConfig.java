@@ -38,14 +38,16 @@ public class SecurityConfig {
         return security
                 .csrf(csrf->csrf.disable())
                 .cors(cors -> cors.disable())
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/login","/register","/v3/api-docs/**",
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/login","/register","/wishlist/**","/v3/api-docs/**",
                                 "/api-docs",
                                 "/configuration/ui",
                                 "/swagger-resources/**",
                                 "/configuration/security",
                                 "/swagger-ui/**",
                                 "/webjars/**",
-                                "/actuator/**").permitAll()
+                                "/actuator/**",
+                                "/sendMail",
+                                "/sendMailWithAttachment").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
