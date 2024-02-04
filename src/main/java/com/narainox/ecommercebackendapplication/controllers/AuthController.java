@@ -4,7 +4,9 @@ import com.narainox.ecommercebackendapplication.dto.UserDto;
 import com.narainox.ecommercebackendapplication.payloads.JwtAuthRequest;
 import com.narainox.ecommercebackendapplication.payloads.JwtAuthResponse;
 import com.narainox.ecommercebackendapplication.security.JwtTokenHelper;
+import com.narainox.ecommercebackendapplication.services.EmailService;
 import com.narainox.ecommercebackendapplication.services.UserService;
+import com.narainox.ecommercebackendapplication.utils.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -59,6 +64,11 @@ public class AuthController {
     public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto)
     {
         UserDto registerUser = userService.registerUser(userDto);
+        Email em=new Email();
+        em.setSubject("Welcome to E-commerce Store! ");
+        em.setRecipient(registerUser.getEmail());
+        em.setMessage("Hi "+registerUser.getUsername()+" Thank you for creating your profile using email address"+registerUser.getEmail()+" Use this sign-in whenever you visit the site.");
+        emailService.sendEmail(em);
         return new ResponseEntity<>(registerUser,HttpStatus.CREATED);
     }
 }
