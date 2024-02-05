@@ -2,6 +2,7 @@ package com.narainox.ecommercebackendapplication.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Data
 @Table(name="carts")
 public class Cart {
     @Id

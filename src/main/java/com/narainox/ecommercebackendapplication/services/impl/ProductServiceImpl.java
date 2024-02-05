@@ -65,6 +65,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ProductDto getProduct(Integer productId) throws Exception {
+        Product product = productRepository.findById(productId).orElseThrow(() -> new RecordNotFoundException("Product", "productId", productId));
+        return modelMapper.map(product,ProductDto.class);
+    }
+
+    @Override
     public void deleteProduct(Integer productId) throws Exception {
         Product product = productRepository.findById(productId).orElseThrow(() -> new RecordNotFoundException("Product", "ProductId", productId));
         productRepository.delete(product);
