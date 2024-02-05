@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 
 @SpringBootApplication
-public class  ECommerceBackendApplication implements CommandLineRunner {
+public class  ECommerceBackendApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ECommerceBackendApplication.class, args);
@@ -25,6 +27,9 @@ public class  ECommerceBackendApplication implements CommandLineRunner {
 	}
 	@Autowired
 	private RoleRepository roleRepository;
+
+
+
 	@Override
 	public void run(String... args) throws Exception {
 		try{
@@ -40,14 +45,17 @@ public class  ECommerceBackendApplication implements CommandLineRunner {
 			List<Role> list = List.of(role, role1);
 			List<Role> roles = roleRepository.saveAll(list);
 
-			roles.forEach(r->
-					System.out.println(r.getName()));
-
-
 		}
 		catch (Exception e)
 		{
 
 		}
+
+
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(ECommerceBackendApplication.class);
 	}
 }

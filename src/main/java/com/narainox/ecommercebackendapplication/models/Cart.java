@@ -25,7 +25,7 @@ public class Cart {
     private Integer cartId;
 
     @Column(name = "created_date")
-    private Date craetedDate;
+    private Date createdDate;
 
     @ManyToOne
     @JoinColumn( name = "product_id")

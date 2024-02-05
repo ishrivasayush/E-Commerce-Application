@@ -1,6 +1,7 @@
 package com.narainox.ecommercebackendapplication.controllers;
 
 import com.narainox.ecommercebackendapplication.dto.AddToCartDto;
+import com.narainox.ecommercebackendapplication.dto.CartDto;
 import com.narainox.ecommercebackendapplication.dto.UserDto;
 import com.narainox.ecommercebackendapplication.models.Cart;
 import com.narainox.ecommercebackendapplication.models.User;
@@ -49,8 +50,9 @@ public class CartController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("/api/v1/")
-    public ResponseEntity<APIResponse> getCartItem(
+    public ResponseEntity<APIResponse> getCartItems(
             @RequestParam("token") String token
     )
     {
@@ -58,15 +60,35 @@ public class CartController {
         try{
             String userTemp = jwtTokenHelper.getUsernameFromToken("Bearer "+token);
             User user=userService.getUser(userTemp);
-            Cart cart=cartService.getCartItemo(addToCartDto,user);
+            CartDto cart=cartService.getCartItems(user);
             apiResponse.setData(cart);
-            apiResponse.setMessage("Product is added successfully.");
-            return new ResponseEntity<>(apiResponse,HttpStatus.CREATED);
+            apiResponse.setMessage("Product is get successfully.");
+            return new ResponseEntity<>(apiResponse,HttpStatus.OK);
         }
         catch (Exception e)
         {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/api/v1/delete/{cartItemId}")
+    public ResponseEntity<APIResponse> deleteCartItems(
+            @RequestParam("token") String token,
+            @PathVariable Integer cartItemId
+    )
+    {
+        APIResponse apiResponse=new APIResponse();
+        try{
+            String userTemp = jwtTokenHelper.getUsernameFromToken("Bearer "+token);
+            User user=userService.getUser(userTemp);
+            cartService.deleteCartItem(cartItemId, user);
+            apiResponse.setMessage("Item is deleted successfully.");
+            return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }
