@@ -36,7 +36,7 @@
 - Swagger UI
 
 # Running the app
-1. Clone the repository: git clone 
+1. Clone the repository: git clone https://github.com/ishrivasayush/E-Commerce-Application.git
 2. Import the project into STS:
   - Click File > Import...
   - Select Maven > Existing Maven Projects and click Next
@@ -77,7 +77,15 @@
 - **MySQL Workbench and DataGrip** were employed to **store employee information**. The **back-end**, developed with **Spring Boot**, was **configured to connect with the database**, while the **front-end**, built with **React**, was responsible for **retrieving and displaying** this information.
 - **Spring Boot** was additionally utilised to **create custom exceptions**, specifically designed for **handling scenarios where the user ID was not found or encountered other exceptional conditions**.
 
-- 
+## 6. Original Creator:
+
+Author: Ayush Shrivastava
+ 
+Github Project Name: E-Commerce Backend Application
+
+
+Date: 4 Feb, 2023
+
 
 
 
